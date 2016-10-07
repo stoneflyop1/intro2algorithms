@@ -1,5 +1,7 @@
 package sorts
 
+import "math"
+
 // MergeSort Sort
 func MergeSort(a []int, p, r int) {
 	if p < r {
@@ -16,7 +18,8 @@ func MergeSort(a []int, p, r int) {
 
 }
 
-func merge(a []int, p, q, r int) {
+// mergeWithSentinel 带有限位器的合并算法
+func mergeWithSentinel(a []int, p, q, r int) {
 	ll := make([]int, q+1-p)
 	for ii := p; ii < q+1; ii++ {
 		ll[ii-p] = a[ii]
@@ -27,8 +30,9 @@ func merge(a []int, p, q, r int) {
 	}
 	i := 0
 	j := 0
-	ll = append(ll, 1000000)
-	rr = append(rr, 1000000)
+	var sentinelMax = math.MaxInt32 //限位器，取一个最大值
+	ll = append(ll, sentinelMax)
+	rr = append(rr, sentinelMax)
 	//fmt.Println("ll\t", ll)
 	//fmt.Println("rr\t", rr)
 	for k := p; k <= r; k++ {

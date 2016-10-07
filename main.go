@@ -1,6 +1,7 @@
 package main
 
 import (
+	"intro2alg/datastructs"
 	"intro2alg/geom"
 	"intro2alg/sorts"
 	"math/rand"
@@ -9,6 +10,7 @@ import (
 func main() {
 	sorts.TestSorts()
 	geom.TestGeom()
+	datastructs.Tests()
 }
 
 func randomString(l int) string {

@@ -1,6 +1,6 @@
 package sorts
 
-// InsertionSort recur
+// InsertionSort recursive
 func InsertionSort(arr []int, endIndex int) {
 	if endIndex > 0 {
 		InsertionSort(arr, endIndex-1)
@@ -18,7 +18,7 @@ func insertSortSort(arr []int, endIndex int) {
 	arr[i+1] = key
 }
 
-// InsertionSortCount should be
+// InsertionSortCount iterative with count
 func InsertionSortCount(arr []int) int {
 	count := 0
 	for i := 1; i < len(arr); i++ {
@@ -41,7 +41,7 @@ func ComparisonSort(arr []int) []int {
 	s := make([]int, len(arr))
 	for i := 0; i < len(arr)-1; i++ {
 		for j := i + 1; j < len(arr); j++ {
-			if arr[i] <= arr[j] { // if there is not equal sign, it's unstable
+			if arr[i] <= arr[j] { // if there is no equal sign, it's unstable
 				countArr[j]++
 			} else {
 				countArr[i]++

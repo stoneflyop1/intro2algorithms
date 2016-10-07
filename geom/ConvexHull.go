@@ -5,6 +5,7 @@ import (
 	"sort"
 )
 
+// GetConvexHull pnts sorted in ccw
 func GetConvexHull(pnts []Pnt) []Pnt {
 	sort.Sort(ByXThenY(pnts))
 	count := len(pnts)
@@ -110,7 +111,7 @@ func areaWithSymbol(p1, p2, p3 Pnt) float64 {
 	return x1*y2 + x3*y1 + x2*y3 - x3*y2 - x2*y1 - x1*y3
 }
 
-// GetConvexHullExtremePnts
+// GetConvexHullExtremePnts not sorting
 func GetConvexHullExtremePnts(pnts []Pnt) []Pnt {
 
 	count := len(pnts)
