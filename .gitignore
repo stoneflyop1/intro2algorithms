@@ -1,0 +1,8 @@
+# build output file
+*.out
+
+# mac default file
+.DS_Store
+
+# vscode config folder
+.vscode/
