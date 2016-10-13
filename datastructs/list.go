@@ -1,5 +1,7 @@
 package datastructs
 
+import "fmt"
+
 // ref https://golang.org/src/container/list/list.go
 type Slist struct {
 	root *Snode
@@ -28,6 +30,27 @@ func (l *Slist) append(node *Snode) *Snode {
 func (l *Slist) Append(v interface{}) *Snode {
 	node := &Snode{value: v}
 	return l.append(node)
+}
+
+func (l *Slist) appendFront(node *Snode) *Snode {
+	l.len++
+	if l.root == nil {
+		l.root = node
+		return node
+	}
+	node.next = l.root
+	l.root = node
+	return node
+}
+
+func (l *Slist) AppendFront(v interface{}) *Snode {
+	node := &Snode{value: v}
+	return l.appendFront(node)
+}
+
+func (l *Slist) last() interface{} {
+	node, _ := l.Last()
+	return node.value
 }
 
 func (l *Slist) Last() (*Snode, int) {
@@ -76,4 +99,15 @@ func (l *Slist) Remove(v interface{}) *Snode {
 		prev = root
 	}
 	return nil
+}
+
+func (l *Slist) print() {
+	s := make([]interface{}, 0)
+	s = append(s, l.len)
+	node := l.root
+	for node != nil {
+		s = append(s, node.value)
+		node = node.next
+	}
+	fmt.Println(s...)
 }

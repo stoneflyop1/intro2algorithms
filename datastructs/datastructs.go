@@ -61,5 +61,26 @@ func Tests() {
 	ls.Push(3)
 	ls.Push(4)
 	fmt.Println(ls.list.len, ls.count)
-	ls.Push(5) //overflow
+	//ls.Push(5) //overflow
+
+	fmt.Println("------listqueue test--------------")
+	lq := NewListQueue(4)
+	lq.Enqueue(1)
+	lq.list.print()
+	lq.Enqueue(2)
+	lq.list.print()
+	lq.Enqueue(3)
+	lq.list.print()
+	lq.Enqueue(4)
+	lq.list.print()
+	fmt.Println("Dequeue: ", lq.list.last(), lq.Dequeue())
+	fmt.Println("Dequeue: ", lq.list.last(), lq.Dequeue())
+	fmt.Println("Dequeue: ", lq.list.last(), lq.Dequeue())
+	fmt.Println("Dequeue: ", lq.list.last(), lq.Dequeue())
+	//lq.Dequeue() //underflow
+	lq.Enqueue(1)
+	lq.Enqueue(2)
+	lq.Enqueue(3)
+	lq.Enqueue(4)
+	lq.Enqueue(5) //overflow
 }
