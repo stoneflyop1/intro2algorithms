@@ -16,15 +16,14 @@ func (q *ListQueue) Enqueue(v interface{}) {
 		panic("overflow")
 	}
 	q.count++
-	q.list.AppendFront(v)
+	q.list.Append(v)
 }
 
 func (q *ListQueue) Dequeue() interface{} {
 	if q.count == 0 {
 		panic("underflow")
 	}
-	last, _ := q.list.Last()
-	node := q.list.remove(last)
+	node := q.list.RemoveFront()
 	q.count--
 	return node.value
 }

@@ -18,7 +18,7 @@ func (s *ListStack) Push(v interface{}) {
 	if s.count == s.len {
 		panic("overflow")
 	}
-	s.list.Append(v)
+	s.list.AppendFront(v)
 	s.count++
 }
 
@@ -26,8 +26,7 @@ func (s *ListStack) Pop() interface{} {
 	if s.list.root == nil {
 		panic("underflow")
 	}
-	last, _ := s.list.Last()
-	s.list.remove(last)
+	node := s.list.RemoveFront()
 	s.count--
-	return last.value
+	return node.value
 }

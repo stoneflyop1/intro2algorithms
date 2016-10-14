@@ -5,6 +5,7 @@ import "fmt"
 // ref https://golang.org/src/container/list/list.go
 type Slist struct {
 	root *Snode
+	end  *Snode
 	len  int
 }
 
@@ -14,16 +15,18 @@ type Snode struct {
 }
 
 func (l *Slist) append(node *Snode) *Snode {
-	root := l.root
 	l.len++
-	if root == nil {
+	if l.root == nil {
 		l.root = node
-		return node
+	} else {
+		if l.end == nil {
+			l.end = node
+			l.root.next = l.end
+		} else {
+			l.end.next = node
+			l.end = node
+		}
 	}
-	for root.next != nil {
-		root = root.next
-	}
-	root.next = node
 	return node
 }
 
@@ -48,57 +51,11 @@ func (l *Slist) AppendFront(v interface{}) *Snode {
 	return l.appendFront(node)
 }
 
-func (l *Slist) last() interface{} {
-	node, _ := l.Last()
-	return node.value
-}
-
-func (l *Slist) Last() (*Snode, int) {
+func (l *Slist) RemoveFront() *Snode {
 	root := l.root
-	count := 0
-	for root != nil && root.next != nil {
-		root = root.next
-		count++
-	}
-	return root, count
-}
-
-func (l *Slist) remove(node *Snode) *Snode {
-	prev := l.root
-	if prev == nil {
-		return nil
-	}
-	if prev.next == nil && prev == node {
-		l.root = nil
-		l.len--
-		return node
-	}
-	for prev != nil {
-		if prev.next == node {
-			prev.next = prev.next.next
-			l.len--
-			return node
-		}
-		prev = prev.next
-	}
-	return nil
-}
-
-func (l *Slist) Remove(v interface{}) *Snode {
-	prev := l.root
-	if prev == nil {
-		return nil
-	}
-	for prev.next != nil {
-		root := prev.next
-		if root.value == v {
-			prev = root.next
-			l.len--
-			return root
-		}
-		prev = root
-	}
-	return nil
+	l.root = l.root.next
+	l.len--
+	return root
 }
 
 func (l *Slist) print() {
