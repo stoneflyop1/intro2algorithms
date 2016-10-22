@@ -42,7 +42,7 @@ func Tests() {
 	//q0.DequeueRight() //underflow
 
 	fmt.Println("------liststack test--------------")
-	ls := NewListStack(4)
+	ls := NewListStack()
 	ls.Push(1)
 	ls.Push(2)
 	ls.Push(3)
@@ -64,7 +64,7 @@ func Tests() {
 	//ls.Push(5) //overflow
 
 	fmt.Println("------listqueue test--------------")
-	lq := NewListQueue(4)
+	lq := NewListQueue()
 	lq.Enqueue(1)
 	lq.list.print()
 	lq.Enqueue(2)

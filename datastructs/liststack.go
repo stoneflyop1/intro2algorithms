@@ -1,13 +1,13 @@
 package datastructs
 
 type ListStack struct {
-	list  *Slist
-	len   int
+	list *Slist
+	//len   int
 	count int
 }
 
-func NewListStack(capacity int) *ListStack {
-	return &ListStack{len: capacity, list: &Slist{len: 0}}
+func NewListStack() *ListStack {
+	return &ListStack{list: &Slist{len: 0}}
 }
 
 func (s *ListStack) IsEmpty() bool {
@@ -15,9 +15,6 @@ func (s *ListStack) IsEmpty() bool {
 }
 
 func (s *ListStack) Push(v interface{}) {
-	if s.count == s.len {
-		panic("overflow")
-	}
 	s.list.AppendFront(v)
 	s.count++
 }
