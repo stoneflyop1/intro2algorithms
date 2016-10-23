@@ -2,6 +2,20 @@ package datastructs
 
 import "fmt"
 
+type IntComparable int
+
+//implement Comparable interface for int
+func (i IntComparable) compare(v interface{}) int {
+	vi := v.(int)
+	i1 := int(i)
+	if i1 > vi {
+		return 1
+	} else if i1 < vi {
+		return -1
+	}
+	return 0
+}
+
 func Tests() {
 	fmt.Println("******************************")
 	fmt.Println("------stack test--------------")
@@ -83,4 +97,39 @@ func Tests() {
 	lq.Enqueue(3)
 	lq.Enqueue(4)
 	lq.Enqueue(5) //overflow
+
+	fmt.Println("---------------binary tree test-----------")
+	t4 := &BTreeNode{key: 4, parent: nil}
+	t2 := &BTreeNode{key: 2, parent: t4}
+	t1 := &BTreeNode{key: 1, parent: t2}
+	t3 := &BTreeNode{key: 3, parent: t2}
+	t5 := &BTreeNode{key: 5, parent: t4}
+
+	t4.right = t5
+	t4.left = t2
+	t2.left = t1
+	t2.right = t3
+	PrintBinaryTree2(t4)
+	fmt.Println()
+	PrintBinaryTree(t4)
+	st := TreeSearch(t4, IntComparable(3))
+	fmt.Println()
+	fmt.Println("Search 3 recursively: ", st.key)
+	st2 := TreeSearchIterative(t4, IntComparable(3))
+	fmt.Println("Search 3 iteratively: ", st2.key)
+	fmt.Println("Find minimum: ", TreeMinimum(t4).key)
+	fmt.Println("Find maximum: ", TreeMaximum(t4).key)
+
+	fmt.Println("---------------arbitrary tree test-----------")
+	abt := &TreeNode{key: 1, parent: nil}
+	at2 := &TreeNode{key: 2, parent: abt}
+	at4 := &TreeNode{key: 4, parent: at2}
+	at5 := &TreeNode{key: 5, parent: at2}
+	at3 := &TreeNode{key: 3, parent: abt}
+	abt.leftChild = at2
+	abt.rightSibling = at3
+	at2.leftChild = at4
+	at2.rightSibling = at5
+	PrintTree(abt)
+
 }
