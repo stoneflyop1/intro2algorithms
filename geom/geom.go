@@ -2,7 +2,7 @@ package geom
 
 import "fmt"
 
-func TestGeom() {
+func Tests() {
 	fmt.Println("minDistPnts...")
 	pnts := []Pnt{Pnt{X: 1, Y: 2}, Pnt{X: 2, Y: 4}, Pnt{X: 1, Y: 3}}
 	fmt.Println(pnts)

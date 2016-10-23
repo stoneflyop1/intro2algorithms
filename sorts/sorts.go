@@ -8,7 +8,7 @@ import (
 )
 
 // TestSorts test sort algorithms
-func TestSorts() {
+func Tests() {
 	arr := []int{5, 2, 4, 6, 1, 3}
 	fmt.Println("SortInt...")
 	fmt.Println(arr)

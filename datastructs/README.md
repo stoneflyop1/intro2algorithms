@@ -22,6 +22,8 @@
 * 中序遍历(inorder traversal 或者 inorder tree walk)：左子树->根->右子树
 * 后序遍历(postorder traversal 或者 postorder tree walk)：左子树->右子树->根
 
+三种遍历形式何时使用，见：http://stackoverflow.com/questions/9456937/when-to-use-preorder-postorder-and-inorder-binary-search-tree-traversal-strate
+
 ```
     func PrintBinaryTree(root *BTreeNode) {
         if root == nil {

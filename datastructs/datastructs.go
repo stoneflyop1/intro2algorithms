@@ -6,8 +6,16 @@ type IntComparable int
 
 //implement Comparable interface for int
 func (i IntComparable) compare(v interface{}) int {
-	vi := v.(int)
+	// here you cannot only use v.(int) because v may be typeof  IntComparable
+	var val int
+	switch v.(type) {
+	case int:
+		val = v.(int)
+	case IntComparable:
+		val = int(v.(IntComparable))
+	}
 	i1 := int(i)
+	vi := val
 	if i1 > vi {
 		return 1
 	} else if i1 < vi {
@@ -119,6 +127,26 @@ func Tests() {
 	fmt.Println("Search 3 iteratively: ", st2.key)
 	fmt.Println("Find minimum: ", TreeMinimum(t4).key)
 	fmt.Println("Find maximum: ", TreeMaximum(t4).key)
+	fmt.Println("Find Successor for 3: ", TreeSuccessor(t3).key)
+	fmt.Println("Find Predecessor for 3: ", TreePredecessor(t3).key)
+	tt := TreeInsert(t4, IntComparable(7))
+	PrintBinaryTree2(tt)
+	fmt.Println()
+	tt = TreeInsert(tt, IntComparable(6))
+	PrintBinaryTree2(tt)
+	fmt.Println()
+	tt = TreeDelete(tt, st)
+	fmt.Println("delete", st.key)
+	PrintBinaryTree2(tt)
+	fmt.Println()
+	tt = TreeDelete(tt, TreeMinimum(tt))
+	fmt.Println("delete minimum...")
+	PrintBinaryTree2(tt)
+	fmt.Println()
+	tt = TreeDelete(tt, TreeMaximum(tt))
+	fmt.Println("delete maximum...")
+	PrintBinaryTree2(tt)
+	fmt.Println()
 
 	fmt.Println("---------------arbitrary tree test-----------")
 	abt := &TreeNode{key: 1, parent: nil}

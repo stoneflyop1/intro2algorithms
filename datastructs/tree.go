@@ -116,6 +116,98 @@ func TreeMaximum(tree *BTreeNode) *BTreeNode {
 	return tree
 }
 
+// TreeSuccessor find the successor of a node in a binary search tree
+func TreeSuccessor(node *BTreeNode) *BTreeNode {
+	if node.right != nil {
+		return TreeMinimum(node.right)
+	}
+	p := node.parent
+	for p != nil && node == p.right {
+		node = p
+		p = p.parent
+	}
+	return p
+}
+
+// TreePredecessor find the predecessor of a node in a binary search tree
+func TreePredecessor(node *BTreeNode) *BTreeNode {
+	if node.left != nil {
+		return TreeMaximum(node.left)
+	}
+	p := node.parent
+	for p != nil && node == p.left {
+		node = p
+		p = p.parent
+	}
+	return p
+}
+
+// TreeInsert insert element to a binary search tree
+func TreeInsert(root *BTreeNode, v interface{}) *BTreeNode {
+	v0, ok := v.(Comparable)
+	if !ok {
+		panic("must be comparable")
+	}
+	z := &BTreeNode{key: v}
+	var p *BTreeNode
+	r0 := root
+	r := root
+	for r != nil {
+		p = r
+		if v0.compare(r.key) < 0 {
+			r = r.left
+		} else {
+			r = r.right
+		}
+	}
+	z.parent = p
+	if p == nil {
+		r0 = z
+	} else if v0.compare(p.key) < 0 {
+		p.left = z
+	} else {
+		p.right = z
+	}
+	return r0
+}
+
+// TreeDelete delete a node of binary search tree
+func TreeDelete(root, z *BTreeNode) *BTreeNode {
+	if z == nil {
+		return root
+	}
+	if z.left == nil {
+		root = transplant(root, z, z.right)
+	} else if z.right == nil {
+		root = transplant(root, z, z.left)
+	} else {
+		y := TreeMinimum(z.right)
+		if y.parent != z {
+			root = transplant(root, y, y.right)
+			y.right = z.right
+			y.right.parent = y
+		}
+		root = transplant(root, z, y)
+		y.left = z.left
+		y.left.parent = y
+	}
+	return root
+}
+
+func transplant(root, u, v *BTreeNode) *BTreeNode {
+	if u.parent == nil {
+		root = v
+	} else if u == u.parent.left {
+		u.parent.left = v
+	} else {
+		u.parent.right = v
+	}
+	if v != nil {
+		v.parent = u.parent
+	}
+	return root
+}
+
 // TreeNode
 type TreeNode struct {
 	key          interface{}

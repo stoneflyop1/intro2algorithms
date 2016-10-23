@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	sorts.TestSorts()
-	geom.TestGeom()
+	sorts.Tests()
+	geom.Tests()
 	datastructs.Tests()
 }
 
