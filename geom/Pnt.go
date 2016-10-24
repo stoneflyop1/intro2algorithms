@@ -39,3 +39,25 @@ func (a ByXThenY) Less(i, j int) bool {
 	}
 	return true
 }
+
+type ByX []Pnt
+
+func (a ByX) Len() int      { return len(a) }
+func (a ByX) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByX) Less(i, j int) bool {
+	if a[i].X < a[j].X {
+		return true
+	}
+	return false
+}
+
+type ByY []Pnt
+
+func (a ByY) Len() int      { return len(a) }
+func (a ByY) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByY) Less(i, j int) bool {
+	if a[i].Y < a[j].Y {
+		return true
+	}
+	return false
+}

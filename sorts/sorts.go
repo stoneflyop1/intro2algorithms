@@ -9,8 +9,9 @@ import (
 
 // TestSorts test sort algorithms
 func Tests() {
+	fmt.Println("*****************Sorting******************")
 	arr := []int{5, 2, 4, 6, 1, 3}
-	fmt.Println("SortInt...")
+	fmt.Println("-----------SortInt--------------")
 	fmt.Println(arr)
 	SortInt(arr)
 	fmt.Println(arr)
@@ -41,64 +42,64 @@ func Tests() {
 	}
 	fmt.Println(aa, " ", bb, " ", cc, " ", c)
 
-	fmt.Println("selection sort")
+	fmt.Println("--------------selection sort-----------------")
 
 	arr2 := []int{3, 6, 1, 9, 4}
 	fmt.Println(arr2)
 	SelectionSort(arr2)
 	fmt.Println(arr2)
 
-	fmt.Println("merge sort")
+	fmt.Println("--------------merge sort--------------")
 	arr3 := []int{5, 2, 4, 7, 1, 3, 2, 6}
 	fmt.Println(arr3)
 	MergeSort(arr3, 0, len(arr3))
 	fmt.Println(arr3)
 
-	fmt.Println("insert sort")
+	fmt.Println("--------------insert sort--------------")
 	arr3 = []int{5, 2, 4, 7, 1, 3, 2, 6}
 	fmt.Println(arr3)
 	InsertionSort(arr3, len(arr3)-1)
 	fmt.Println(arr3)
 
-	fmt.Println("bubble sort")
+	fmt.Println("--------------bubble sort--------------")
 	arr3 = []int{5, 2, 4, 7, 1, 3, 2, 6}
 	fmt.Println(arr3)
 	BubbleSort(arr3)
 	fmt.Println(arr3)
 
-	fmt.Println("max heap sort")
+	fmt.Println("--------------max heap sort--------------")
 	arr3 = []int{5, 7, 4, 2, 1, 3, 2, 6}
 	fmt.Println(arr3)
 	MaxHeapSort(arr3)
 	fmt.Println(arr3)
 
-	fmt.Println("quick sort")
+	fmt.Println("--------------quick sort--------------")
 	arr3 = []int{5, 7, 4, 2, 1, 3, 2, 6}
 	fmt.Println(arr3)
 	QuickSort(arr3, 0, len(arr3)-1)
 	fmt.Println(arr3)
 
-	fmt.Println("sort k")
+	fmt.Println("--------------sort k--------------")
 	arr3 = []int{4, 7, 0, 2, 1, 3, 9, 6}
 	fmt.Println(arr3)
 	k := SortK(arr3, 5)
 	fmt.Println(arr3)
 	fmt.Println(k)
 
-	fmt.Println("dec2binary")
+	fmt.Println("--------------dec2binary--------------")
 	for _, n = range []int{10, 11, 12, 13, 14, 15, 16, 17, 18, 19} {
 		bit := dec2binary(n)
 
 		fmt.Println(n, bit)
 	}
 
-	fmt.Println("compare sort")
+	fmt.Println("--------------compare sort--------------")
 	arr0 := []int{60, 35, 81, 98, 14, 47}
 	fmt.Println(arr0)
 	arr00 := ComparisonSort(arr0)
 	fmt.Println(arr00)
 
-	fmt.Println("exp...")
+	fmt.Println("--------------exp--------------")
 	rand.Seed(time.Now().UTC().UnixNano())
 	startIndex := 1000
 	step := 500
@@ -112,14 +113,14 @@ func Tests() {
 		fmt.Println(aSize, aCount)
 	}
 
-	fmt.Println("find max Index")
+	fmt.Println("--------------find max Index--------------")
 	fmt.Println(arr0)
 	maxIndex := findMaxIndex(arr0, 0, len(arr0))
 	fmt.Println(maxIndex, arr0[maxIndex])
 	min, max := findMinMaxValue(arr0, 0, len(arr0))
 	fmt.Println(min, max)
 
-	fmt.Println("merge sort 2")
+	fmt.Println("--------------merge sort 2--------------")
 	arrarr := []int{6, 9, 7, 8, 5, 1, 3}
 	fmt.Println(arrarr)
 	MergeSort2(arrarr)

@@ -25,7 +25,7 @@ func (i IntComparable) compare(v interface{}) int {
 }
 
 func Tests() {
-	fmt.Println("******************************")
+	fmt.Println("*************datastructs****************")
 	fmt.Println("------stack test--------------")
 
 	s := NewStack(4)
