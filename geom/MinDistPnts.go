@@ -48,6 +48,7 @@ func efficientClosestPair(pntsX, pntsY []Pnt) (Pnt, Pnt) {
 	if count <= 3 {
 		return MinDistPnts(pntsX)
 	}
+	// 按照中值分离数组
 	l := count / 2
 	r := count - l
 	pl := make([]Pnt, l)
@@ -75,8 +76,9 @@ func efficientClosestPair(pntsX, pntsY []Pnt) (Pnt, Pnt) {
 		pp1 = pr1
 		pp2 = pr2
 	}
-	m := pntsX[l-1].X
 
+	// 处理中值附近的可能比d更小的点集，x的差在d之内
+	m := pntsX[l-1].X
 	s := make([]Pnt, 0)
 	for i := 0; i < count; i++ {
 		if math.Abs(pntsY[i].X-m) < d {

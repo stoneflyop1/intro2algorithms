@@ -11,20 +11,10 @@ func GetConvexHull(pnts []Pnt) []Pnt {
 	count := len(pnts)
 	p1 := pnts[0]
 	pn := pnts[count-1]
-	// x1 := p1.X
-	// y1 := p1.Y
-	// x2 := pn.X
-	// y2 := pn.Y
-	// a := y2 - y1
-	// b := x1 - x2
-	// c := x1*y2 - y1*x2
 	ePnts := make([]Pnt, 0)
 	pnts1 := make([]Pnt, 0)
 	pnts2 := make([]Pnt, 0)
 	for i := 1; i < count-1; i++ {
-		// x3 := pnts[i].X
-		// y3 := pnts[i].Y
-		// d := a*x3 + b*y3 - c
 		d := areaWithSymbol(p1, pn, pnts[i])
 		if d > 0 {
 			pnts1 = append(pnts1, pnts[i])
@@ -44,13 +34,13 @@ func GetConvexHull(pnts []Pnt) []Pnt {
 func convexHull(p1, pn Pnt, pnts []Pnt) []Pnt {
 	ePnts := make([]Pnt, 0)
 	count := len(pnts)
-	fmt.Println("total... ", p1, pn, pnts)
+	//fmt.Println("total... ", p1, pn, pnts)
 	if count == 0 {
 		return ePnts
 	}
 	if count == 1 {
 		ePnts = append(ePnts, pnts[0])
-		fmt.Println("1 Pnt: ", pnts[0])
+		//fmt.Println("1 Pnt: ", pnts[0])
 		return ePnts
 	}
 	dist0 := 0.0
@@ -68,7 +58,7 @@ func convexHull(p1, pn Pnt, pnts []Pnt) []Pnt {
 	}
 
 	pmax := pnts[maxIndex]
-	fmt.Println("pmax: ", pmax, len(pnts))
+	fmt.Println("pmax for ", p1, pn, ": ", pmax, len(pnts))
 
 	pnts1, pnts2 := splitPnts(p1, pmax, pn, maxIndex, pnts)
 
@@ -111,11 +101,12 @@ func areaWithSymbol(p1, p2, p3 Pnt) float64 {
 	return x1*y2 + x3*y1 + x2*y3 - x3*y2 - x2*y1 - x1*y3
 }
 
-// GetConvexHullExtremePnts not sorting
+// GetConvexHullExtremePnts no sorting
 func GetConvexHullExtremePnts(pnts []Pnt) []Pnt {
 
 	count := len(pnts)
-	eIndices := make(map[int]bool)
+	ind1 := make([]int, 0)
+	ind2 := make([]int, 0)
 	for i := 0; i < count-1; i++ {
 		x1 := pnts[i].X
 		y1 := pnts[i].Y
@@ -144,22 +135,56 @@ func GetConvexHullExtremePnts(pnts []Pnt) []Pnt {
 				}
 			}
 			if ok {
-				_, isIn := eIndices[i]
-				if !isIn {
-					eIndices[i] = true
-				}
-				_, isIn = eIndices[j]
-				if !isIn {
-					eIndices[j] = true
-				}
+				ind1 = append(ind1, i)
+				ind2 = append(ind2, j)
 			}
 		}
 	}
-	ePnts := make([]Pnt, len(eIndices))
-	index := 0
-	for key, _ := range eIndices {
-		ePnts[index] = pnts[key]
-		index++
+	indices := make([]int, 0)
+	indices1 := make(map[int]bool)
+	indices2 := make(map[int]bool)
+	indices = append(indices, ind1[0])
+	indices = append(indices, ind2[0])
+	indices1[0] = true
+	indices2[0] = true
+	for {
+		canBreak := false
+		for i := 0; i < len(ind1); i++ {
+			_, has := indices1[i]
+			if !has {
+				if indices[len(indices)-1] == ind1[i] {
+					iii := ind2[i]
+					if iii == indices[0] {
+						canBreak = true
+						break
+					}
+					indices = append(indices, iii)
+					indices2[i] = true
+					break
+				}
+			}
+			_, has = indices2[i]
+			if !has {
+				if indices[len(indices)-1] == ind2[i] {
+					iii := ind1[i]
+					if iii == indices[0] {
+						canBreak = true
+						break
+					}
+					indices = append(indices, iii)
+					indices1[i] = true
+					break
+				}
+			}
+		}
+		if canBreak {
+			break
+		}
+	}
+	ePnts := make([]Pnt, len(indices))
+	for i := 0; i < len(indices); i++ {
+		ePnts[i] = pnts[indices[i]]
 	}
 	return ePnts
+
 }

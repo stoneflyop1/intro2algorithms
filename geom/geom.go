@@ -15,7 +15,7 @@ func Tests() {
 
 	fmt.Println("-------------convexHull---------------")
 	pnts0 := []Pnt{Pnt{X: 3, Y: 0}, Pnt{X: 2, Y: 0}, Pnt{X: 1, Y: 0}, Pnt{X: 0, Y: 0},
-		Pnt{X: -1, Y: 0}, Pnt{X: -2, Y: 0},
+		Pnt{X: -1, Y: 0}, Pnt{X: -2, Y: 0}, Pnt{X: 1, Y: 1}, Pnt{X: 2, Y: 2},
 		Pnt{X: 0, Y: 3}, Pnt{X: 0, Y: 2}, Pnt{X: 0, Y: 1}, Pnt{X: 0, Y: -1}, Pnt{X: 0, Y: -2}}
 	fmt.Println(pnts0)
 	pnts1 := GetConvexHullExtremePnts(pnts0)
