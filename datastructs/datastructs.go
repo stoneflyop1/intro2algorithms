@@ -6,7 +6,7 @@ type IntComparable int
 
 //implement Comparable interface for int
 func (i IntComparable) compare(v interface{}) int {
-	// here you cannot only use v.(int) because v may be typeof  IntComparable
+	// here you cannot only use v.(type) because v may be typeof  IntComparable
 	var val int
 	switch v.(type) {
 	case int:
@@ -108,15 +108,19 @@ func Tests() {
 
 	fmt.Println("---------------binary tree test-----------")
 	t4 := &BTreeNode{key: 4, parent: nil}
-	t2 := &BTreeNode{key: 2, parent: t4}
-	t1 := &BTreeNode{key: 1, parent: t2}
-	t3 := &BTreeNode{key: 3, parent: t2}
-	t5 := &BTreeNode{key: 5, parent: t4}
+	// t2 := &BTreeNode{key: 2, parent: t4}
+	// t1 := &BTreeNode{key: 1, parent: t2}
+	// t3 := &BTreeNode{key: 3, parent: t2}
+	// t5 := &BTreeNode{key: 5, parent: t4}
+	// t4.right = t5
+	// t4.left = t2
+	// t2.left = t1
+	// t2.right = t3
+	t4 = TreeInsert(t4, IntComparable(2))
+	t4 = TreeInsert(t4, IntComparable(1))
+	t4 = TreeInsert(t4, IntComparable(3))
+	t4 = TreeInsert(t4, IntComparable(5))
 
-	t4.right = t5
-	t4.left = t2
-	t2.left = t1
-	t2.right = t3
 	PrintBinaryTree2(t4)
 	fmt.Println()
 	PrintBinaryTree(t4)
@@ -127,8 +131,8 @@ func Tests() {
 	fmt.Println("Search 3 iteratively: ", st2.key)
 	fmt.Println("Find minimum: ", TreeMinimum(t4).key)
 	fmt.Println("Find maximum: ", TreeMaximum(t4).key)
-	fmt.Println("Find Successor for 3: ", TreeSuccessor(t3).key)
-	fmt.Println("Find Predecessor for 3: ", TreePredecessor(t3).key)
+	fmt.Println("Find Successor for 3: ", TreeSuccessor(st).key)
+	fmt.Println("Find Predecessor for 3: ", TreePredecessor(st).key)
 	tt := TreeInsert(t4, IntComparable(7))
 	PrintBinaryTree2(tt)
 	fmt.Println()

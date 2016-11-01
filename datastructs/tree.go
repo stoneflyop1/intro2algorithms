@@ -2,6 +2,7 @@ package datastructs
 
 import "fmt"
 
+// Comparable compares two objects, used to implement collections sorting
 type Comparable interface {
 	compare(v interface{}) int
 }
@@ -76,7 +77,7 @@ func TreeSearch(tree *BTreeNode, key interface{}) *BTreeNode {
 	}
 }
 
-// TreeSearchIterative search in a binary search tree iteratively
+// TreeSearchIterative searches value key in a binary search tree iteratively
 func TreeSearchIterative(tree *BTreeNode, key interface{}) *BTreeNode {
 	c1, ok1 := key.(Comparable)
 	if !ok1 {
@@ -142,7 +143,8 @@ func TreePredecessor(node *BTreeNode) *BTreeNode {
 	return p
 }
 
-// TreeInsert insert element to a binary search tree
+// TreeInsert inserts element value v to a binary search tree,
+// the inserted value must be Comparable interface
 func TreeInsert(root *BTreeNode, v interface{}) *BTreeNode {
 	v0, ok := v.(Comparable)
 	if !ok {
@@ -171,7 +173,7 @@ func TreeInsert(root *BTreeNode, v interface{}) *BTreeNode {
 	return r0
 }
 
-// TreeDelete delete a node of binary search tree
+// TreeDelete deletes a node of binary search tree
 func TreeDelete(root, z *BTreeNode) *BTreeNode {
 	if z == nil {
 		return root
@@ -194,6 +196,9 @@ func TreeDelete(root, z *BTreeNode) *BTreeNode {
 	return root
 }
 
+// transplant replaces one subtree as a child of its parent with another subtree.
+// When transplant replaces the subtree rooted at node u with the subtree rooted at node v,
+// node u's parent becomes node v's parent, and u's parent ends up having v as its appropriate child.
 func transplant(root, u, v *BTreeNode) *BTreeNode {
 	if u.parent == nil {
 		root = v
@@ -208,7 +213,8 @@ func transplant(root, u, v *BTreeNode) *BTreeNode {
 	return root
 }
 
-// TreeNode
+// TreeNode general treenode with each node can have one left child and
+// many rightSiblings which is started with rightSibling
 type TreeNode struct {
 	key          interface{}
 	parent       *TreeNode
