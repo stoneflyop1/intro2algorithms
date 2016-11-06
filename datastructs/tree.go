@@ -94,12 +94,15 @@ func TreeSearchIterative(tree *BTreeNode, key interface{}) *BTreeNode {
 	}
 	c := c1.compare(tree.key)
 	for tree != nil && c != 0 {
+		c = c1.compare(tree.key)
 		if c < 0 {
 			tree = tree.left
-		} else {
+		} else if c > 0 {
 			tree = tree.right
+		} else {
+			return tree
 		}
-		c = c1.compare(tree.key)
+
 	}
 	return tree
 }

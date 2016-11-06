@@ -29,6 +29,20 @@ func RbTreeHeight(root *RbTreeNode) int {
 	}
 }
 
+// PrintBinaryTree inorder recursion
+func PrintRbBinaryTree(root *RbTreeNode) {
+	if root == nil {
+		return
+	}
+	if root.left != nil {
+		PrintRbBinaryTree(root.left)
+	}
+	fmt.Print(root.key, "\t")
+	if root.right != nil {
+		PrintRbBinaryTree(root.right)
+	}
+}
+
 func RbTreeSearch(x *RbTreeNode, k interface{}) *RbTreeNode {
 	k1, ok := k.(Comparable)
 	if !ok {
@@ -36,12 +50,14 @@ func RbTreeSearch(x *RbTreeNode, k interface{}) *RbTreeNode {
 	}
 	cv := k1.compare(x.key)
 	for x != nil && cv != 0 {
+		cv = k1.compare(x.key)
 		if cv < 0 {
 			x = x.left
-		} else {
+		} else if cv > 0 {
 			x = x.right
+		} else {
+			return x
 		}
-		cv = k1.compare(x.key)
 	}
 	return x
 }
@@ -143,7 +159,7 @@ func (T *RbTree) RbTreeInsert(v interface{}) {
 	if !ok {
 		panic("must be comparable")
 	}
-	z := &RbTreeNode{key: v, color: RED}
+	z := &RbTreeNode{key: v, color: RED} // set red to satisfy black height property
 	x := T.root
 	y := T.root // 记录不为nil的x
 	for x != nil {
@@ -210,4 +226,111 @@ func (T *RbTree) rbTreeInsertFixup(z *RbTreeNode) {
 		}
 	}
 	T.root.color = BLACK
+}
+
+func (T *RbTree) RbTreeDelete(z *RbTreeNode) {
+	y := z
+	var x *RbTreeNode
+	yoColor := y.color
+	if z.left == nil {
+		x = z.right
+		T.rbTransplant(z, z.right)
+
+	} else if z.right == nil {
+		x = z.left
+		T.rbTransplant(z, z.left)
+
+	} else {
+		y = RbTreeMinimum(z.right)
+		yoColor = y.color
+		x = y.right
+		if x != nil && y.parent == z {
+			x.parent = y
+		} else {
+			T.rbTransplant(y, y.right)
+			y.right = z.right
+			if y.right != nil {
+				y.right.parent = y
+			}
+
+		}
+
+		T.rbTransplant(z, y)
+		y.left = z.left
+		y.left.parent = y
+		y.color = z.color
+
+	}
+	if yoColor == BLACK && x != nil {
+		T.rbTreeDeleteFixup(x)
+	}
+}
+
+func (T *RbTree) rbTransplant(u, v *RbTreeNode) {
+	if u.parent == nil {
+		T.root = v
+	} else if u == u.parent.left {
+		u.parent.left = v
+	} else {
+		u.parent.right = v
+	}
+	if v != nil {
+		v.parent = u.parent
+	}
+
+}
+
+func (T *RbTree) rbTreeDeleteFixup(x *RbTreeNode) {
+	for x != T.root && x.color == BLACK {
+		if x == x.parent.left {
+			w := x.parent.right
+			if w.color == RED { // case 1
+				w.color = BLACK
+				x.parent.color = RED
+				T.leftRotate(x.parent)
+				w = x.parent.right
+			}
+			if w.left.color == BLACK && w.right.color == BLACK { // case 2
+				w.color = RED
+				x = x.parent
+			} else {
+				if w.right.color == BLACK { // case 3
+					w.left.color = BLACK
+					w.color = RED
+					T.rightRotate(w)
+					w = x.parent.right
+				}
+				w.color = x.parent.color // case 4
+				x.parent.color = BLACK   // case 4
+				w.right.color = BLACK    // case 4
+				T.leftRotate(x.parent)   // case 4
+				x = T.root
+			}
+		} else { // x = x.parent.right
+			w := x.parent.left
+			if w.color == RED { // case 1
+				w.color = BLACK
+				x.parent.color = RED
+				T.rightRotate(x.parent)
+				w = x.parent.left
+			}
+			if w.left.color == BLACK && w.right.color == BLACK { // case 2
+				w.color = RED
+				x = x.parent
+			} else {
+				if w.left.color == BLACK { // case 3
+					w.right.color = BLACK
+					w.color = RED
+					T.leftRotate(w)
+					w = x.parent.left
+				}
+				w.color = x.parent.color // case 4
+				x.parent.color = BLACK   // case 4
+				w.left.color = BLACK     // case 4
+				T.rightRotate(x.parent)  // case 4
+				x = T.root
+			}
+		}
+	}
+	x.color = BLACK
 }
