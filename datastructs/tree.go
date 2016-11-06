@@ -2,11 +2,6 @@ package datastructs
 
 import "fmt"
 
-// Comparable compares two objects, used to implement collections sorting
-type Comparable interface {
-	compare(v interface{}) int
-}
-
 // BTreeNode Binary TreeNode
 type BTreeNode struct {
 	key    interface{}
@@ -56,6 +51,20 @@ func PrintBinaryTree2(root *BTreeNode) {
 			stack.Push(root)
 			root = root.left
 		}
+	}
+}
+
+// TreeHeight recursively get tree height, 5.3 p183
+func TreeHeight(tree *BTreeNode) int {
+	if tree == nil {
+		return -1
+	}
+	var left = TreeHeight(tree.left)
+	var right = TreeHeight(tree.right)
+	if left >= right {
+		return left + 1
+	} else {
+		return right + 1
 	}
 }
 
@@ -227,7 +236,8 @@ func PrintTree(root *TreeNode) {
 	if root == nil {
 		return
 	}
-	fmt.Print(root.key, "\t")
+	fmt.Print("\t")
+	fmt.Print(root.key)
 	if root.leftChild != nil {
 		PrintTree(root.leftChild)
 	}

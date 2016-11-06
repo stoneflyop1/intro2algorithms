@@ -121,6 +121,8 @@ func Tests() {
 	t4 = TreeInsert(t4, IntComparable(3))
 	t4 = TreeInsert(t4, IntComparable(5))
 
+	fmt.Println("Insert Tree Height: ", TreeHeight(t4))
+
 	PrintBinaryTree2(t4)
 	fmt.Println()
 	PrintBinaryTree(t4)
@@ -151,6 +153,21 @@ func Tests() {
 	fmt.Println("delete maximum...")
 	PrintBinaryTree2(tt)
 	fmt.Println()
+
+	t0 := &BTreeNode{key: 1, parent: nil}
+	t0 = TreeInsert(t0, IntComparable(2))
+	t0 = TreeInsert(t0, IntComparable(3))
+	t0 = TreeInsert(t0, IntComparable(4))
+	t0 = TreeInsert(t0, IntComparable(5))
+	fmt.Println("Insert asc tree Height: ", TreeHeight(t0))
+
+	rbTree := &RbTree{root: &RbTreeNode{key: 1, color: BLACK}}
+	//rbTree.RbTreeInsert(IntComparable(1))
+	rbTree.RbTreeInsert(IntComparable(2))
+	rbTree.RbTreeInsert(IntComparable(3))
+	rbTree.RbTreeInsert(IntComparable(4))
+	rbTree.RbTreeInsert(IntComparable(5))
+	fmt.Println("RbTree Height: ", RbTreeHeight(rbTree.root))
 
 	fmt.Println("---------------arbitrary tree test-----------")
 	abt := &TreeNode{key: 1, parent: nil}
