@@ -70,3 +70,40 @@ InsertionSort(A[0...n-1])
 ```
 
 对于接近排好序的线性表，插入排序拥有很好的效率
+
+## 归并排序(MergeSort)
+
+代码实现[MergeSort.go](sorts/MergeSort.go)，递归版本参考《算法导论》第2.3.1节
+
+* 分(Divide)：把n个元素的线性表序列划分成两个子序列，每个子序列含有n/2个元素
+* 治(Conquer)：使用归并方法对两个子序列进行递归排序
+* 和(Combine)：把排好序的两个子序列合并为一个排好序的序列
+在不断递归的最后是n个长度为1的子序列，然后再依次向上排序合并。
+
+伪代码如下(参考《算法设计与分析导论》第5.1节)：
+
+```
+MergeSort(A[0...n-1])
+    if n > 1
+        copy A[0...n/2-1] to B[0...n/2-1]
+        copy A[n/2-1...n-1] to C[0...n/2-1]
+        MergeSort(B[0...n/2-1])
+        MergeSort(C[0...n/2-1])
+        Merge(B,C,A)
+
+Merge(B[0...p-1], C[0...q-1], A[0...p-q+1])
+    //输入：已排好序的数组B[0...p-1]和C[0...q-1]
+    //输出：B和C合并为排好序的数组A[0...p+q-1]
+    i = 0; j = 0; k = 0
+    while i < p && j < q  do
+        if B[i] <= C[j]
+            A[k] = B[j]; i = i + 1
+        else
+            A[k] = C[j]; j = j + 1
+        k = k + 1
+    if i == p
+        copy C[j...q-1] to A[k...p+q-1]
+    else
+        copy B[i...p-1] to A[k...p+q-1]
+
+```

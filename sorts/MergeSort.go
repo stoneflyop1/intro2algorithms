@@ -47,7 +47,7 @@ func mergeWithSentinel(a []int, p, q, r int) {
 		}
 	}
 }
-
+// merge2 不带限位器
 func merge2(a []int, p, q, r int) {
 	n1, n2 := q-p, r-q
 	ll := make([]int, n1)
