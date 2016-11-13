@@ -2,8 +2,54 @@
 
 注：主要参考了《算法导论》，其中[datastructs.go](datastructs.go)为测试代码。
 
-## 栈(stack)和队列(queue)
+## 栈和队列
 
+注：代码的数组实现中考虑了数组下溢和上溢两种异常，而不像伪代码那样：只有栈考虑下溢异常。
+
+### 栈(stack)
+
+栈是一个先进后出(LIFO)的数据结构，一般仅有入栈和出栈两个操作和判断栈是否为空操作。栈为空时，无法执行出栈操作。可以使用数组或者链表实现。
+下面为以数组实现的伪代码：
+
+```
+StackIsEmpty(S)
+    if S.top == 0
+        return true
+    return false
+
+Push(S, x)
+    S.top++
+    S[S.top] = x
+
+Pop(S)
+    if StackIsEmpty(S)
+        error "underflow"
+    S.top--
+    return S[S.top+1]
+
+```
+
+### 队列(queue)
+
+队列是一个先进先出(FIFO)的数据结构，一般有入队和出队两个操作。可以使用数组或者链表实现。
+数组实现的伪代码：
+
+```
+Enqueue(Q, x)
+    Q[Q.tail] = x
+    if Q.tail == Q.length
+        Q.tail = 1
+    else
+        Q.tail++
+
+Dequeue(Q)
+    x = Q[Q.head]
+    if Q.head == Q.length
+        Q.head = 1
+    else
+        Q.head++
+    return x
+```
 
 ## 树节点的表示
 ### 二叉树(binary tree)
