@@ -3,13 +3,14 @@ package sorts
 // QuickSort sort
 func QuickSort(a []int, p, r int) {
 	if p < r {
-		i := partitionS(a, p, r)
+		i := partitionHoare(a, p, r)
 		QuickSort(a, p, i-1)
 		QuickSort(a, i+1, r)
 	}
 }
 
-// SortK get k sequence index
+// SortK get kth ordered element, kth will be the final index,
+// the array will be partitioned for kth element
 func SortK(a []int, k int) int {
 	n := len(a)
 	if k < 0 || k >= n {
@@ -19,6 +20,7 @@ func SortK(a []int, k int) int {
 	return a[index]
 }
 
+// selection4K select the kth order index of the array
 func selection4K(a []int, left, right, k int) int {
 	if left == right {
 		return left
@@ -36,11 +38,11 @@ func selection4K(a []int, left, right, k int) int {
 	return selection4K(a, mid+1, right, k-diff)
 }
 
-// j must begin with p
+// partitionS LomutoPartition for selection
 func partitionS(a []int, p, r int) int {
 	i := p
 	x := a[r]
-	for j := p; j < r; j++ {
+	for j := p; j < r; j++ { // j must begin with p
 		if a[j] <= x {
 			if i != j {
 				a[j], a[i] = a[i], a[j]
@@ -52,7 +54,7 @@ func partitionS(a []int, p, r int) int {
 	return i
 }
 
-// for quick sort
+// partitionQ LomutoPartition for quick sort
 func partitionQ(a []int, p, r int) int {
 	i := p - 1
 	x := a[r]
@@ -62,10 +64,30 @@ func partitionQ(a []int, p, r int) int {
 			if i != j {
 				a[j], a[i] = a[i], a[j]
 			}
-
 		}
 	}
 	i++
 	a[i], a[r] = a[r], a[i]
 	return i
+}
+
+// partitionHoare partition from both ends
+func partitionHoare(a []int, l, r int) int {
+	p := a[l]
+	i := l
+	j := r + 1
+	for i < j {
+		i++
+		for i < r && a[i] < p {
+			i++
+		}
+		j--
+		for j > l && a[j] > p {
+			j--
+		}
+		a[i], a[j] = a[j], a[i]
+	}
+	a[i], a[j] = a[j], a[i]
+	a[l], a[j] = a[j], a[l]
+	return j
 }

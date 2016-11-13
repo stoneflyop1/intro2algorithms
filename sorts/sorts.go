@@ -81,8 +81,10 @@ func Tests() {
 
 	fmt.Println("--------------sort k--------------")
 	arr3 = []int{4, 7, 0, 2, 1, 3, 9, 6}
+	fmt.Println("before sorted for k...")
 	fmt.Println(arr3)
 	k := SortK(arr3, 5)
+	fmt.Println("after sorted for k...")
 	fmt.Println(arr3)
 	fmt.Println(k)
 

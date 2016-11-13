@@ -110,6 +110,8 @@ Merge(B[0...p-1], C[0...q-1], A[0...p-q+1])
 
 ## (最大)堆排序(HeapSort)
 
+主要参考《算法导论》第6章。
+
 一个二叉堆(binary heap)可以看作一个以数组(array)方式实现的几近完全的二叉树(binary tree)。
 最大堆特性：父节点值不小于子节点的值，即：根元素最大。
 
@@ -138,3 +140,24 @@ HeapSort (A)
         A.heapSize = A.heapSize-1
         MaxHeapify(A, 1) // 1st is always the largest one
 ```
+
+## 快速排序(QuickSort)
+
+参考《算法导论》第7章和《算法设计与分析基础》第5.2节。
+
+快速排序也是一种分治算法。与归并排序类似，也需要对数组进行划分，不过与其不同的是，不是根据位置，而是根据元素值划分。做过一次划分之后，选定的划分元素则已经在了最终的位置。与归并排序另一个不同的地方时，快速排序不需要合并，所有工作都在划分程序中完成。
+
+假设对数组的A[p...r]元素进行排序，程序名为QuickSort：
+* 分(Divide)：选定一个q(p<=q<=r)，把数组划分为两个子数组Left=A[p...q-1], Right=A[q+1...r]，使得Left中的所有元素都不大于A[q]，Right中所有元素都不小于A[q]
+* 治(Conquer)：对Left和Right递归调用QuickSort
+* 合(Combine)：无需合并
+
+```
+QuickSort(A, p, r)
+    if p < r
+        q = partition(A, p, r)
+        QuickSort(A, p, q-1)
+        QuickSort(A, q+1, r)
+```
+
+注：《算法设计与分析基础》第5.2节给出了一个更高效的划分算法(Hoare)；划分算法还可以用在选择问题(Selection Problem)中(选择第k小的元素问题)，代码实现见代码文件中的Selection4K。划分程序还需要注意循环变量的边界问题(数组下标越界问题)。
