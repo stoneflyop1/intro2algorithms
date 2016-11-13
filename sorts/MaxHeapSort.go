@@ -14,7 +14,7 @@ func MaxHeapSort(a []int) {
 	for i := heapSize; i > 0; i-- {
 		a[0], a[i] = a[i], a[0]
 		heapSize--
-		maxHeapify(a, 0, heapSize)
+		maxHeapifyIter(a, 0, heapSize)
 	}
 }
 
@@ -30,7 +30,7 @@ func rightHeap(i int) int {
 	return (i + 1) * 2
 }
 
-// maxHeapify maintain max heap
+// maxHeapify maintain max heap, log n
 // 0. maxHeapify(a, largest, heapSize)
 // 1. l = leftHeap(i)
 // 2. r = rightHeap(i)
@@ -54,11 +54,11 @@ func maxHeapify1(a []int, i int, heapSize int) {
 	}
 	if largest != i {
 		a[i], a[largest] = a[largest], a[i]
-		maxHeapify(a, largest, heapSize)
+		maxHeapifyIter(a, largest, heapSize)
 	}
 }
 
-func maxHeapify(a []int, i int, heapSize int) {
+func maxHeapifyIter(a []int, i int, heapSize int) {
 	for {
 		l := leftHeap(i)
 		r := rightHeap(i)
@@ -86,6 +86,6 @@ func maxHeapify(a []int, i int, heapSize int) {
 // 2.     maxHeapify(a, i, heapSize)
 func buildMaxHeap(a []int, heapSize int) {
 	for i := len(a) / 2; i >= 0; i-- {
-		maxHeapify(a, i, heapSize)
+		maxHeapifyIter(a, i, heapSize)
 	}
 }

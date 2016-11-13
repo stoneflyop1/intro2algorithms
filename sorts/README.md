@@ -1,5 +1,5 @@
 # 排序算法
-主要参考了《算法导论》，其中[sort.go](sorts.go)为测试代码
+主要参考了《算法导论》，其中[sorts.go](sorts.go)为测试代码
 
 所有线性表元素个数都假定为n
 
@@ -106,4 +106,35 @@ Merge(B[0...p-1], C[0...q-1], A[0...p-q+1])
     else
         copy B[i...p-1] to A[k...p+q-1]
 
+```
+
+## (最大)堆排序(HeapSort)
+
+一个二叉堆(binary heap)可以看作一个以数组(array)方式实现的几近完全的二叉树(binary tree)。
+最大堆特性：父节点值不小于子节点的值，即：根元素最大。
+
+### 父节点和左右子节点的编号关系
+
+若编号以1开始，则：
+* i的父节点编号不大于i/2
+* i的左子节点编号为2*i
+* i的右子节点编号为2*i+1
+
+注：编号以0开始的请参考代码实现
+
+主程序包含三部分：
+
+* MaxHeapify —— 用来保持最大堆特性，对数时间
+* BuildMaxHeap —— 从未排序数组中构造一个最大堆，线性时间
+* HeapSort —— 对数组进行在位排序，n*log n时间
+
+程序从BuildMaxHeap开始先构造一个最大堆，这样第一个元素为最大。把第一个元素跟最后一个元素交换，通过MaxHeapify使第一个元素到第n-1个元素保持最大堆特性，依次循环；按照此种方式进行到第二个元素，就得到了一个非降序的数组。
+
+```
+HeapSort (A)
+    BuildMaxHeap(A)
+    for i = A.length downto 2
+        A[1],A[i] = A[i],A[1]
+        A.heapSize = A.heapSize-1
+        MaxHeapify(A, 1) // 1st is always the largest one
 ```
