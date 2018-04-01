@@ -1,9 +1,10 @@
+// run sample data for test
 package main
 
 import (
-	"intro2alg/datastructs"
-	"intro2alg/geom"
-	"intro2alg/sorts"
+	"zjf/intro2alg/datastructs"
+	"zjf/intro2alg/geom"
+	"zjf/intro2alg/sorts"
 	"math/rand"
 )
 
